@@ -32,10 +32,12 @@ class Client extends BaseClient
     public function session(string $code)
     {
         $params = [
+            'appid' => $this->app['config']['app_id'],
+            'secret' => $this->app['config']['secret'],
             'js_code' => $code,
             'grant_type' => 'authorization_code',
         ];
 
-        return $this->httpGet('rest/2.0/oauth/getsessionkeybycode', $params);
+        return $this->httpGet('sns/jscode2session', $params);
     }
 }
