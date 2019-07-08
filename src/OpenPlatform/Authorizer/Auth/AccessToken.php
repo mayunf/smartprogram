@@ -3,7 +3,7 @@
 /*
  * This file is part of the mayunfeng/smartprogram.
  *
- * 
+ *
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -25,7 +25,7 @@ class AccessToken extends BaseAccessToken
     /**
      * @var string
      */
-    protected $requestMethod = 'POST';
+    protected $requestMethod = 'GET';
 
     /**
      * @var string
@@ -35,7 +35,7 @@ class AccessToken extends BaseAccessToken
     /**
      * {@inheritdoc}.
      */
-    protected $tokenKey = 'authorizer_access_token';
+    protected $tokenKey = 'access_token';
 
     /**
      * @var \EasyBaiDu\OpenPlatform\Application
@@ -61,9 +61,12 @@ class AccessToken extends BaseAccessToken
     protected function getCredentials(): array
     {
         return [
-            'component_appid' => $this->component['config']['app_id'],
-            'authorizer_appid' => $this->app['config']['app_id'],
-            'authorizer_refresh_token' => $this->app['config']['refresh_token'],
+//            'refresh_token' => $this->app['config']['refresh_token'],
+            'grant_type' => 'app_to_tp_authorization_code',
+            'code' => $this->app['config']['refresh_token'],
+            'access_token' => $this->component['access_token']->getToken()['access_token']
+//            'app_id' => $this->app['config']['app_id'],
+//            'access_token' => $this->component['access_token']->getToken()['access_token']
         ];
     }
 
@@ -72,8 +75,15 @@ class AccessToken extends BaseAccessToken
      */
     public function getEndpoint(): string
     {
-        return 'cgi-bin/component/api_authorizer_token?'.http_build_query([
-            'component_access_token' => $this->component['access_token']->getToken()['component_access_token'],
-        ]);
+        return 'rest/2.0/oauth/token';
+//        return 'rest/2.0/oauth/token'.http_build_query([
+//            'access_token' => $this->component['access_token']->getToken()['access_token'],
+////            'refresh_token' => $this->app['config']['refresh_token'],
+//        ]);
+    }
+    public function getCacheKey()
+    {
+//        return $this->cachePrefix.md5(json_encode($this->getCredentials()));
+        return $this->cachePrefix.$this->app['config']['mina_app_id'];
     }
 }

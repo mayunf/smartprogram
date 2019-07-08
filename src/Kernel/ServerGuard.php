@@ -161,7 +161,7 @@ class ServerGuard
             throw new BadRequestException('No message received.');
         }
 
-        if ($this->isSafeMode() && !empty($message['Encrypt'])) {
+        if (!empty($message['Encrypt'])) {
             $message = $this->decryptMessage($message);
 
             // Handle JSON format.

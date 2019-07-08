@@ -113,11 +113,8 @@ abstract class AccessToken implements AccessTokenInterface
         if (!$refresh && $cache->has($cacheKey)) {
             return $cache->get($cacheKey);
         }
-
         $token = $this->requestToken($this->getCredentials(), true);
-
         $this->setToken($token[$this->tokenKey], $token['expires_in'] ?? 7200);
-
         return $token;
     }
 
@@ -176,11 +173,13 @@ abstract class AccessToken implements AccessTokenInterface
         $result = json_decode($response->getBody()->getContents(), true);
         $formatted = $this->castResponseToType($response, $this->app['config']->get('response_type'));
 
-        if (empty($result['data'])) {
+        if (empty($result['data']) && empty($result['access_token'])) {
             throw new HttpException('Request access_token fail: '.json_encode($result, JSON_UNESCAPED_UNICODE), $response, $formatted);
         }
-
-        return $toArray ? $result['data'] : $formatted;
+        if (isset($result['data'])) {
+            return $toArray ? $result['data'] : $formatted;
+        }
+        return $toArray ? $result : $formatted;
     }
 
     /**
@@ -225,7 +224,7 @@ abstract class AccessToken implements AccessTokenInterface
     /**
      * @return string
      */
-    protected function getCacheKey()
+    public function getCacheKey()
     {
         return $this->cachePrefix.md5(json_encode($this->getCredentials()));
     }
@@ -266,6 +265,11 @@ abstract class AccessToken implements AccessTokenInterface
     public function getTokenKey()
     {
         return $this->tokenKey;
+    }
+
+    public function getCachePrefix()
+    {
+        return $this->cachePrefix;
     }
 
     /**

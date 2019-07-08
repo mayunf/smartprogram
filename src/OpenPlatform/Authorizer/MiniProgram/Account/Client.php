@@ -25,7 +25,23 @@ class Client extends BaseClient
      */
     public function getBasicInfo()
     {
-        return $this->httpPostJson('cgi-bin/account/getaccountbasicinfo');
+        return $this->httpGet('rest/2.0/smartapp/app/info');
+    }
+
+    /**
+     * 暂停服务
+     */
+    public function pause()
+    {
+        return $this->httpPostJson('rest/2.0/smartapp/app/pause');
+    }
+
+    /**
+     * 开启服务
+     */
+    public function resume()
+    {
+        return $this->httpPostJson('rest/2.0/smartapp/app/resume');
     }
 
     /**

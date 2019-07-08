@@ -41,7 +41,7 @@ class VerifyTicketRefreshed implements EventHandlerInterface
      */
     public function handle($payload = null)
     {
-        if (!empty($payload['ComponentVerifyTicket'])) {
+        if (!empty($payload['Ticket'])) {
             $this->app['verify_ticket']->setTicket($payload['Ticket']);
         }
     }

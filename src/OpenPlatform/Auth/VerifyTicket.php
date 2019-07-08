@@ -3,7 +3,7 @@
 /*
  * This file is part of the mayunfeng/smartprogram.
  *
- * 
+ *
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -61,7 +61,7 @@ class VerifyTicket
     }
 
     /**
-     * Get the credential `component_verify_ticket` from cache.
+     * Get the credential `ticket` from cache.
      *
      * @return string
      *
@@ -74,7 +74,7 @@ class VerifyTicket
             return $cached;
         }
 
-        throw new RuntimeException('Credential "component_verify_ticket" does not exist in cache.');
+        throw new RuntimeException('Credential "ticket" does not exist in cache.');
     }
 
     /**
@@ -84,6 +84,7 @@ class VerifyTicket
      */
     protected function getCacheKey(): string
     {
+//        dd('EasyBaiDu.open_platform.verify_ticket.'.$this->app['config']['app_id']);
         return 'EasyBaiDu.open_platform.verify_ticket.'.$this->app['config']['app_id'];
     }
 }

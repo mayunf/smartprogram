@@ -23,17 +23,16 @@ class AccessToken extends BaseAccessToken
     /**
      * @var string
      */
-    protected $requestMethod = 'POST';
+    protected $requestMethod = 'GET';
 
     /**
      * @var string
      */
-    protected $tokenKey = 'component_access_token';
+    protected $tokenKey = 'access_token';
 
     /**
      * @var string
      */
-//    protected $endpointToGetToken = 'cgi-bin/component/api_component_token';
     protected $endpointToGetToken = 'public/2.0/smartapp/auth/tp/token';
 
     /**
@@ -42,11 +41,14 @@ class AccessToken extends BaseAccessToken
     protected function getCredentials(): array
     {
         return [
-//            'component_appid' => $this->app['config']['app_id'],
-//            'component_appsecret' => $this->app['config']['secret'],
-//            'component_verify_ticket' => $this->app['verify_ticket']->getTicket(),
             'client_id' => $this->app['config']['app_id'],
             'ticket' => $this->app['verify_ticket']->getTicket(),
         ];
     }
+    public function getCacheKey()
+    {
+//        return $this->cachePrefix.md5(json_encode($this->getCredentials()));
+        return $this->cachePrefix.$this->app['config']['app_id'];
+    }
 }
+

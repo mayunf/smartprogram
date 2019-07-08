@@ -3,7 +3,7 @@
 /*
  * This file is part of the mayunfeng/smartprogram.
  *
- * 
+ *
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -28,7 +28,7 @@ class Guard extends ServerGuard
     const EVENT_AUTHORIZED = 'authorized';
     const EVENT_UNAUTHORIZED = 'unauthorized';
     const EVENT_UPDATE_AUTHORIZED = 'updateauthorized';
-    const EVENT_COMPONENT_VERIFY_TICKET = 'component_verify_ticket';
+    const EVENT_COMPONENT_VERIFY_TICKET = 'ticket';
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
@@ -39,8 +39,8 @@ class Guard extends ServerGuard
 
         $message = $this->getMessage();
 
-        if (isset($message['InfoType'])) {
-            $this->dispatch($message['InfoType'], $message);
+        if (isset($message['MsgType'])) {
+            $this->dispatch($message['MsgType'], $message);
         }
 
         return new Response(static::SUCCESS_EMPTY_RESPONSE);

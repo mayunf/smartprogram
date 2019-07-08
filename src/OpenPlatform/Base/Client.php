@@ -30,28 +30,35 @@ class Client extends BaseClient
     public function handleAuthorize(string $authCode = null)
     {
         $params = [
-            'component_appid' => $this->app['config']['app_id'],
-            'authorization_code' => $authCode ?? $this->app['request']->get('auth_code'),
+            'code' => $authCode ?? $this->app['request']->get('authorization_code'),
+            'grant_type' => 'app_to_tp_authorization_code',
         ];
 
-        return $this->httpPostJson('cgi-bin/component/api_query_auth', $params);
+        return $this->httpGet('rest/2.0/oauth/token', $params);
     }
 
     /**
      * Get authorizer info.
      *
-     * @param string $appId
+     * @param string $accessToken 	授权小程序的接口调用凭据
      *
      * @return mixed
      */
-    public function getAuthorizer(string $appId)
+    public function getAuthorizer(string $accessToken)
     {
         $params = [
-            'component_appid' => $this->app['config']['app_id'],
-            'authorizer_appid' => $appId,
+            'access_token' => $accessToken,
         ];
 
-        return $this->httpPostJson('cgi-bin/component/api_get_authorizer_info', $params);
+        return $this->httpGet('rest/2.0/smartapp/app/info', $params);
+    }
+
+    public function retrieveAuthcode (string $appId)
+    {
+        $params = [
+            'app_id' => $appId
+        ];
+        return $this->httpPost('rest/2.0/smartapp/auth/retrieve/authorizationcode', $params);
     }
 
     /**
@@ -120,11 +127,7 @@ class Client extends BaseClient
      */
     public function createPreAuthorizationCode()
     {
-        $params = [
-            'access_token' => $this->accessToken,
-        ];
-
-        return $this->httpGet('rest/2.0/smartapp/tp/createpreauthcode', $params);
+        return $this->httpGet('rest/2.0/smartapp/tp/createpreauthcode');
     }
 
     /**

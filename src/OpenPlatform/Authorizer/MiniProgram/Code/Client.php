@@ -33,7 +33,7 @@ class Client extends BaseClient
      */
     public function commit(int $templateId, string $extJson, string $version, string $description)
     {
-        return $this->httpPostJson('rest/2.0/smartapp/package/upload', [
+        return $this->httpPost('rest/2.0/smartapp/package/upload', [
             'template_id' => $templateId,
             'ext_json' => $extJson,
             'user_version' => $version,
@@ -54,7 +54,7 @@ class Client extends BaseClient
      */
     public function submitAudit(string $content, string $package_id, string $remark)
     {
-        return $this->httpPostJson('rest/2.0/smartapp/package/submitaudit', [
+        return $this->httpPost('rest/2.0/smartapp/package/submitaudit', [
             'content' => $content,
             'package_id' => $package_id,
             'remark' => $remark,
@@ -70,7 +70,7 @@ class Client extends BaseClient
      */
     public function release(string $package_id)
     {
-        return $this->httpPostJson('rest/2.0/smartapp/package/release', [
+        return $this->httpPost('rest/2.0/smartapp/package/release', [
             'package_id' => $package_id
         ]);
     }
@@ -84,7 +84,7 @@ class Client extends BaseClient
      */
     public function rollbackRelease(string $package_id)
     {
-        return $this->httpGet('rest/2.0/smartapp/package/rollback', [
+        return $this->httpPost('rest/2.0/smartapp/package/rollback', [
             'package_id' => $package_id
         ]);
     }
@@ -97,7 +97,7 @@ class Client extends BaseClient
      */
     public function withdrawAudit(string $package_id)
     {
-        return $this->httpGet('rest/2.0/smartapp/package/withdraw', [
+        return $this->httpPost('rest/2.0/smartapp/package/withdraw', [
             'package_id' => $package_id
         ]);
     }
@@ -140,8 +140,6 @@ class Client extends BaseClient
     }
 
 
-    /** 以下API无用 **/
-
     /**
      * @param string|null $path
      *
@@ -149,13 +147,13 @@ class Client extends BaseClient
      *
      * @throws \EasyBaiDu\Kernel\Exceptions\InvalidConfigException
      */
-    public function getQrCode(string $path = null)
+    public function getQrCode(string $package_id, string $path = null, string $width = '200px')
     {
-        return $this->requestRaw('wxa/get_qrcode', 'GET', [
-            'query' => ['path' => $path],
+        return $this->requestRaw('rest/2.0/smartapp/app/qrcode', 'GET', [
+            'query' => ['package_id' => $package_id],
         ]);
     }
-
+    /** 以下API无用 **/
     /**
      *
      * @return array|\EasyBaiDu\Kernel\Support\Collection|object|\Psr\Http\Message\ResponseInterface|string
