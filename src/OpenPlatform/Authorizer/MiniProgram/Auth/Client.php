@@ -52,7 +52,7 @@ class Client extends BaseClient
     public function session(string $code)
     {
         $params = [
-            'js_code' => $code,
+            'code' => $code,
             'grant_type' => 'authorization_code',
         ];
         return $this->httpGet('rest/2.0/oauth/getsessionkeybycode', $params);
