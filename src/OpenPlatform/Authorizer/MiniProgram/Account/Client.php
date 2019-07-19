@@ -44,6 +44,42 @@ class Client extends BaseClient
         return $this->httpPostJson('rest/2.0/smartapp/app/resume');
     }
 
+
+    /**
+     * 绑定熊掌号
+     */
+    public function bindXzh()
+    {
+        return $this->httpPost('rest/2.0/smartapp/promotion/bind/xzh');
+    }
+
+    /**
+     * 设置web化开关
+     */
+    public function modifywebstatus(int $webStatus = 1)
+    {
+        $params = [
+            'web_status' => $webStatus
+        ];
+        return $this->httpPost('rest/2.0/smartapp/app/modifywebstatus', $params);
+    }
+
+    /**
+     * 提交sitemap
+     * @param string $urlList url集合；上传级别上限，0：每天3000条，1：每天5000条 多个,分割
+     * @param int $type 上传级别 0：周级别，一周左右生效；1：天级别，2~3天生效
+     * @return array|\EasyBaiDu\Kernel\Support\Collection|object|\Psr\Http\Message\ResponseInterface|string
+     * @throws \EasyBaiDu\Kernel\Exceptions\InvalidConfigException
+     */
+    public function sitemap(string $urlList, int $type = 1)
+    {
+        $params = [
+            'type' => $type,
+            'url_list' => $urlList
+        ];
+        return $this->httpPost('rest/2.0/smartapp/access/submit/sitemap',$params);
+    }
+
     /**
      * 修改头像.
      *
