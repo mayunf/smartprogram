@@ -28,6 +28,7 @@ class Client extends BaseClient
         return $this->httpGet('rest/2.0/smartapp/app/info');
     }
 
+
     /**
      * 暂停服务
      */
@@ -80,28 +81,9 @@ class Client extends BaseClient
         return $this->httpPost('rest/2.0/smartapp/access/submit/sitemap',$params);
     }
 
-    /**
-     * 修改头像.
-     *
-     * @param string $mediaId 头像素材mediaId
-     * @param int    $left    剪裁框左上角x坐标（取值范围：[0, 1]）
-     * @param int    $top     剪裁框左上角y坐标（取值范围：[0, 1]）
-     * @param int    $right   剪裁框右下角x坐标（取值范围：[0, 1]）
-     * @param int    $bottom  剪裁框右下角y坐标（取值范围：[0, 1]）
-     */
-    public function updateAvatar(
-        string $mediaId,
-        float $left = 0,
-        float $top = 0,
-        float $right = 1,
-        float $bottom = 1
-    ) {
-        $params = [
-            'head_img_media_id' => $mediaId,
-            'x1' => $left, 'y1' => $top, 'x2' => $right, 'y2' => $bottom,
-        ];
-
-        return $this->httpPostJson('cgi-bin/account/modifyheadimage', $params);
+    public function modifyheadimage(string $imgurl)
+    {
+        return $this->httpPost('rest/2.0/smartapp/app/modifyheadimage',['image_url' => $imgurl]);
     }
 
     /**
@@ -113,6 +95,41 @@ class Client extends BaseClient
     {
         $params = ['signature' => $signature];
 
-        return $this->httpPostJson('cgi-bin/account/modifysignature', $params);
+        return $this->httpPost('rest/2.0/smartapp/app/modifysignature', $params);
     }
+
+    /**
+     * 修改小程序名称.
+     *
+     *param string $nickname 小程序名称
+     */
+    public function setNickname(string $nickname,string $img='')
+    {
+        $params = ['nick_name' => $nickname,'app_name_material'=>$img];
+
+        return $this->httpPost('rest/2.0/smartapp/app/setnickname', $params);
+    }
+
+    /**
+     * 小程序类目列表.
+     *param int $category_type 1.个人类型类目 2.企业类型类目 为2时可以查出全部类目
+     */
+    public function categoryList($category_type = 2)
+    {
+        $params = ['category_type' => $category_type];
+        return $this->httpGet('rest/2.0/smartapp/app/category/list',$params);
+    }
+
+    /**
+     * 修改小程序类目.
+     *
+     *param string $categorys 类目类别json字符串
+     */
+    public function categoryUpdate(string $categorys)
+    {
+        $params = ['categorys' => $categorys];
+        return $this->httpPost('/rest/2.0/smartapp/app/category/update', $params);
+    }
+
+
 }
