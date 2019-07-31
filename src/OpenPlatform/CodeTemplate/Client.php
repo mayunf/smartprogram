@@ -48,7 +48,7 @@ class Client extends BaseClient
             'template_id' => $templateId,
         ];
 
-        return $this->httpPostJson('rest/2.0/smartapp/template/deltemplate', $params);
+        return $this->httpPost('rest/2.0/smartapp/template/deltemplate', $params);
     }
     /**
      * 获取草稿箱内的所有临时代码草稿
@@ -80,7 +80,7 @@ class Client extends BaseClient
             'user_desc' => $user_desc,
         ];
 
-        return $this->httpPostJson('wxa/addtotemplate', $params);
+        return $this->httpPost('rest/2.0/smartapp/template/addtotemplate', $params);
     }
 
 }

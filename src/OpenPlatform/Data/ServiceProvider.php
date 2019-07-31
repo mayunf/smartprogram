@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace EasyBaiDu\OpenPlatform\Component;
+namespace EasyBaiDu\OpenPlatform\Data;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
@@ -18,7 +18,7 @@ class ServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $app)
     {
-        $app['component'] = function ($app) {
+        $app['data'] = function ($app) {
             return new Client($app);
         };
     }

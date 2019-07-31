@@ -11,6 +11,7 @@
 
 namespace EasyBaiDu\OpenPlatform;
 
+use EasyBaiDu\Kernel\Exceptions\Exception;
 use EasyBaiDu\Kernel\ServiceContainer;
 use EasyBaiDu\MiniProgram\Encryptor;
 use EasyBaiDu\OpenPlatform\Authorizer\Auth\AccessToken;
@@ -24,6 +25,7 @@ use EasyBaiDu\OpenPlatform\Authorizer\Server\Guard;
  * @property \EasyBaiDu\OpenPlatform\Server\Guard        $server
  * @property \EasyBaiDu\OpenPlatform\Auth\AccessToken    $access_token
  * @property \EasyBaiDu\OpenPlatform\CodeTemplate\Client $code_template
+ * @property \EasyBaiDu\OpenPlatform\Data\Client $data
  *
  * @method mixed handleAuthorize(string $authCode = null)
  * @method mixed getAuthorizer(string $appId)
@@ -42,6 +44,7 @@ class Application extends ServiceContainer
         Base\ServiceProvider::class,
         Server\ServiceProvider::class,
         CodeTemplate\ServiceProvider::class,
+        Data\ServiceProvider::class,
     ];
 
     /**
@@ -68,6 +71,9 @@ class Application extends ServiceContainer
     {
         if (!$this->access_token->getCache()->has($this->access_token->getCachePrefix().$appId)) {
             $res = $this->retrieveAuthcode($appId);
+            if (!isset($res['data'])) {
+                throw new Exception($res['msg']);
+            }
             $refreshToken = $res['data']['authorization_code'];
         }
         return new MiniProgram($this->getAuthorizerConfig($appId, $refreshToken), $this->getReplaceServices($accessToken) + [
