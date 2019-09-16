@@ -24,6 +24,7 @@ use EasyBaiDu\OpenPlatform\Authorizer\Aggregate\AggregateServiceProvider;
  * @property \EasyBaiDu\OpenPlatform\Authorizer\MiniProgram\Domain\Client  $domain
  * @property \EasyBaiDu\OpenPlatform\Authorizer\MiniProgram\Setting\Client $setting
  * @property \EasyBaiDu\OpenPlatform\Authorizer\MiniProgram\Tester\Client  $tester
+ * @property \EasyBaiDu\OpenPlatform\Authorizer\MiniProgram\chain\Client  $chain
  */
 class Application extends MiniProgram
 {
@@ -44,6 +45,7 @@ class Application extends MiniProgram
             Account\ServiceProvider::class,
             Setting\ServiceProvider::class,
             Tester\ServiceProvider::class,
+            Chain\ServiceProvider::class,
         ];
 
         foreach ($providers as $provider) {
