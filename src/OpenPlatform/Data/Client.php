@@ -43,27 +43,4 @@ class Client extends BaseClient
         ];
         return $this->httpGet('rest/2.0/smartapp/data/getdata', $params);
     }
-
-/**
- * 查询创建任务状态.
- *
- * @param string $companyName
- * @param string $legalPersonaWechat
- * @param string $legalPersonaName
- *
- * @return array
- *
- * @throws \EasyBaiDu\Kernel\Exceptions\InvalidConfigException
- */
-public
-function getRegistrationStatus(string $companyName, string $legalPersonaWechat, string $legalPersonaName)
-{
-    $params = [
-        'name' => $companyName,
-        'legal_persona_wechat' => $legalPersonaWechat,
-        'legal_persona_name' => $legalPersonaName,
-    ];
-
-    return $this->httpPostJson('cgi-bin/component/fastregisterweapp', $params, ['action' => 'search']);
-}
 }
