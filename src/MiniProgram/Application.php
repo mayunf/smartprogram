@@ -25,10 +25,7 @@ use EasyBaiDu\Kernel\ServiceContainer;
  * @property \EasyBaiDu\MiniProgram\Auth\Client                $auth
  * @property \EasyBaiDu\MiniProgram\Encryptor                  $encryptor
  * @property \EasyBaiDu\MiniProgram\TemplateMessage\Client     $template_message
- * @property \EasyBaiDu\MiniProgram\UniformMessage\Client      $uniform_message
- * @property \EasyBaiDu\MiniProgram\ActivityMessage\Client     $activity_message
  * @property \EasyBaiDu\MiniProgram\Express\Client             $logistics
- * @property \EasyBaiDu\MiniProgram\NearbyPoi\Client           $nearby_poi
  * @property \EasyBaiDu\BasicService\Media\Client              $media
  * @property \EasyBaiDu\BasicService\ContentSecurity\Client    $content_security
  */
@@ -43,14 +40,9 @@ class Application extends ServiceContainer
         AppCode\ServiceProvider::class,
         Server\ServiceProvider::class,
         TemplateMessage\ServiceProvider::class,
-        CustomerService\ServiceProvider::class,
-        UniformMessage\ServiceProvider::class,
-        ActivityMessage\ServiceProvider::class,
         OpenData\ServiceProvider::class,
         Base\ServiceProvider::class,
         Express\ServiceProvider::class,
-        NearbyPoi\ServiceProvider::class,
-        OCR\ServiceProvider::class,
         // Base services
         BasicService\Media\ServiceProvider::class,
         BasicService\ContentSecurity\ServiceProvider::class,
