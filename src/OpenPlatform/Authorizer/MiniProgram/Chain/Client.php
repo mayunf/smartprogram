@@ -82,7 +82,7 @@ class Client extends BaseClient
         if (!empty($telephone)) {
             $params['telephone'] = $telephone;
         }
-        return $this->httpGet('rest/2.0/smartapp/subchain/update',$params);
+        return $this->httpPost('rest/2.0/smartapp/subchain/update',$params);
     }
 
 
@@ -93,7 +93,7 @@ class Client extends BaseClient
      */
     public function getAll()
     {
-        return $this->httpPost('rest/2.0/smartapp/subchain/getall');
+        return $this->httpGet('rest/2.0/smartapp/subchain/getall');
     }
 
 
