@@ -73,6 +73,7 @@ class Client extends BaseClient
     public function update(string $subChainId,string $chainName, string $chainDesc,string $chainPath = null,$telephone = null)
     {
         $params = [
+            'subchain_id' => $subChainId,
             'chain_name' => $chainName,
             'chain_desc' => $chainDesc,
         ];
