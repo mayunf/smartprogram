@@ -20,7 +20,7 @@ use EasyBaiDu\Kernel\ServiceContainer;
  * @author mingyoung <mingyoungcheung@gmail.com>
  *
  * @property \EasyBaiDu\MiniProgram\Auth\AccessToken           $access_token
- * @property \EasyBaiDu\MiniProgram\DataCube\Client            $data_cube
+ * @property \EasyBaiDu\MiniProgram\Data\Client            $data
  * @property \EasyBaiDu\MiniProgram\AppCode\Client             $app_code
  * @property \EasyBaiDu\MiniProgram\Auth\Client                $auth
  * @property \EasyBaiDu\MiniProgram\Encryptor                  $encryptor
@@ -36,7 +36,7 @@ class Application extends ServiceContainer
      */
     protected $providers = [
         Auth\ServiceProvider::class,
-        DataCube\ServiceProvider::class,
+        Data\ServiceProvider::class,
         AppCode\ServiceProvider::class,
         Server\ServiceProvider::class,
         TemplateMessage\ServiceProvider::class,
