@@ -112,21 +112,19 @@ class Client extends BaseClient
 
     /**
      * 停用子链 (针对审核通过的子链，可执行停用操作。停用后将暂停子链数据的分发展现。)
-     * @param string $subChainRankList 子链 Id 字符串，顺序代表了排序位置,使用逗号分割
      * @return array|\EasyBaiDu\Kernel\Support\Collection|object|\Psr\Http\Message\ResponseInterface|string
      * @throws \EasyBaiDu\Kernel\Exceptions\InvalidConfigException
      */
-    public function stop(string $subChainRankList)
+    public function stop()
     {
         return $this->httpPost('rest/2.0/smartapp/subchain/stop');
     }
     /**
      * 启用子链 (针对停用状态下的子链，可执行启用操作。启用后则可恢复子链的分发展现)
-     * @param string $subChainRankList 子链 Id 字符串，顺序代表了排序位置,使用逗号分割
      * @return array|\EasyBaiDu\Kernel\Support\Collection|object|\Psr\Http\Message\ResponseInterface|string
      * @throws \EasyBaiDu\Kernel\Exceptions\InvalidConfigException
      */
-    public function restart(string $subChainRankList)
+    public function restart()
     {
         return $this->httpPost('rest/2.0/smartapp/subchain/restart');
     }
