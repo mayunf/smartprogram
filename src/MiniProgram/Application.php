@@ -20,12 +20,11 @@ use EasyBaiDu\Kernel\ServiceContainer;
  * @author mingyoung <mingyoungcheung@gmail.com>
  *
  * @property \EasyBaiDu\MiniProgram\Auth\AccessToken           $access_token
- * @property \EasyBaiDu\MiniProgram\Data\Client            $data
+ * @property \EasyBaiDu\MiniProgram\Data\Client                $data
  * @property \EasyBaiDu\MiniProgram\AppCode\Client             $app_code
  * @property \EasyBaiDu\MiniProgram\Auth\Client                $auth
  * @property \EasyBaiDu\MiniProgram\Encryptor                  $encryptor
  * @property \EasyBaiDu\MiniProgram\TemplateMessage\Client     $template_message
- * @property \EasyBaiDu\MiniProgram\Express\Client             $logistics
  * @property \EasyBaiDu\BasicService\Media\Client              $media
  * @property \EasyBaiDu\BasicService\ContentSecurity\Client    $content_security
  */
@@ -38,11 +37,8 @@ class Application extends ServiceContainer
         Auth\ServiceProvider::class,
         Data\ServiceProvider::class,
         AppCode\ServiceProvider::class,
-        Server\ServiceProvider::class,
         TemplateMessage\ServiceProvider::class,
-        OpenData\ServiceProvider::class,
         Base\ServiceProvider::class,
-        Express\ServiceProvider::class,
         // Base services
         BasicService\Media\ServiceProvider::class,
         BasicService\ContentSecurity\ServiceProvider::class,
