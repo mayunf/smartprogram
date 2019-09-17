@@ -132,4 +132,13 @@ class Client extends BaseClient
     }
 
 
+    /**
+     * 查询当前设置的最低基础库版本及各版本列表
+     * @return array|\EasyBaiDu\Kernel\Support\Collection|object|\Psr\Http\Message\ResponseInterface|string
+     * @throws \EasyBaiDu\Kernel\Exceptions\InvalidConfigException
+     */
+    public function getSupportVersion()
+    {
+        return $this->httpGet('rest/2.0/smartapp/app/getsupportversion');
+    }
 }
