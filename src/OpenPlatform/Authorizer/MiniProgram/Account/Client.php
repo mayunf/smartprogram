@@ -141,4 +141,15 @@ class Client extends BaseClient
     {
         return $this->httpGet('rest/2.0/smartapp/app/getsupportversion');
     }
+
+    /**
+     * @param string $version
+     * @return array|\EasyBaiDu\Kernel\Support\Collection|object|\Psr\Http\Message\ResponseInterface|string
+     * @throws \EasyBaiDu\Kernel\Exceptions\InvalidConfigException
+     */
+    public function setSupportVersion(string $version)
+    {
+        $params = ['version' => $version];
+        return $this->httpPost('rest/2.0/smartapp/app/setsupportversion', $params);
+    }
 }
